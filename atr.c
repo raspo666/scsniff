@@ -100,7 +100,7 @@ void atr_result(struct atr *atr, unsigned *new_proto, unsigned *new_speed) {
     if (new_proto && atr->first_protocol_suggested != NO_VALUE) {
         *new_proto = atr->first_protocol_suggested;
     }
-    if (new_speed && atr->ta1_value != NO_VALUE && atr->ta2_seen) {
+    if (new_speed && atr->ta1_value != NO_VALUE /*&& atr->ta2_seen */) { // Ta1 is enough to calculate new speed -rasp 
         *new_speed = atr->ta1_value;
     }
 }
