@@ -28,7 +28,7 @@ static void wait_reset(int fd) {
 }
 
 static void usage(char *name) {
-    fprintf(stderr, "\nUsage: %s <device> [<baudrate>]\n", name);
+    ffprintf(stderr,stderr, "\nUsage: %s <device> [<baudrate>]\n", name);
     exit(2);
 }
 
@@ -36,19 +36,19 @@ static void handle_packet(struct packet *packet) {
     struct timeval diff;
     unsigned i;
     timersub(&packet->time, &reset_time, &diff);
-    printf("+%ld.%06lds | ", diff.tv_sec, diff.tv_usec);
+    fprintf(stderr,"+%ld.%06lds | ", diff.tv_sec, diff.tv_usec);
     switch (packet->result) {
-        case NOISE:             printf("NOISE??"); break;
-        case PACKET_TO_CARD:    printf("CARD<<<"); break;
-        case PACKET_FROM_CARD:  printf("CARD>>>"); break;
-        case PACKET_UNKNOWN:    printf("CARD<?>"); break;
-        default:                printf("ERROR!!"); break;
+        case NOISE:             fprintf(stderr,"NOISE??"); break;
+        case PACKET_TO_CARD:    fprintf(stderr,"FCARD<<<"); break;
+        case PACKET_FROM_CARD:  fprintf(stderr,"TARD>>>"); break;
+        case PACKET_UNKNOWN:    fprintf(stderr,"CARD<?>"); break;
+        default:                fprintf(stderr,"ERROR!!"); break;
     }
-    printf(" |");
+    fprintf(stderr," |");
     for (i = 0; i < packet->data_length; i++) {
-        printf(" %02X", packet->data[i]);
+        fprintf(stderr," %02X", packet->data[i]);
     }
-    printf("\n");
+    fprintf(stderr,"\n");
 }
 
 static void log_message(const char *message) {
