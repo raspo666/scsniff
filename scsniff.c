@@ -28,7 +28,7 @@ static void wait_reset(int fd) {
 }
 
 static void usage(char *name) {
-    ffprintf(stderr,stderr, "\nUsage: %s <device> [<baudrate>]\n", name);
+    fprintf(stderr, "\nUsage: %s <device> [<baudrate>]\n", name);
     exit(2);
 }
 
@@ -39,9 +39,9 @@ static void handle_packet(struct packet *packet) {
     fprintf(stderr,"+%ld.%06lds | ", diff.tv_sec, diff.tv_usec);
     switch (packet->result) {
         case NOISE:             fprintf(stderr,"NOISE??"); break;
-        case PACKET_TO_CARD:    fprintf(stderr,"FCARD<<<"); break;
-        case PACKET_FROM_CARD:  fprintf(stderr,"TARD>>>"); break;
-        case PACKET_UNKNOWN:    fprintf(stderr,"CARD<?>"); break;
+        case PACKET_TO_CARD:    fprintf(stderr,"FCARD"); break;
+        case PACKET_FROM_CARD:  fprintf(stderr,"TARD"); break;
+        case PACKET_UNKNOWN:    fprintf(stderr,"UCARD"); break;
         default:                fprintf(stderr,"ERROR!!"); break;
     }
     fprintf(stderr," |");
